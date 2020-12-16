@@ -1,4 +1,4 @@
-.aText {
+.Text {
   font-family: sans-serif;
   font-size: 16px;
   text-anchor: middle;
@@ -27,7 +27,7 @@
 .stateText {
   font-family: sans-serif;
   font-size: 12px;
-  fill: #fff;
+  fill: rgb(7, 1, 1);
   text-anchor: middle;
 }
 
@@ -59,13 +59,13 @@
     display: none;
   }
 
-  .aText {
+  .Text {
     font-size: 14px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .aText {
+  .Text {
     font-size: 13px;
   }
 }

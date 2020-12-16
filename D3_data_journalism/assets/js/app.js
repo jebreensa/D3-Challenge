@@ -34,6 +34,7 @@ d3.csv("assets/data/data.csv", function(data){
     return data;
 }).then(function(data) {
     console.log(data);
+    console.log(data.abbr)
     
 //Graph Scaling: 
 var xScale = d3.scaleLinear()
@@ -64,35 +65,34 @@ var circlesGroup = chartGroup.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
-    .attr("cx", (d,i) => xScale(d.poverty))
+    .attr("cx", d => xScale(d.poverty))
     .attr("cy", d => yScale(d.healthcare))
-    .attr("r", "15")
+    .attr("r", "10")
     .attr("fill", "green")
-    .classed("stateCircle", true)
+    .classed("stateCircle", true);
 
 // State abbreviations
-chartGroup.selectAll("text")
+chartGroup.selectAll(".stateText")
     .data(data)
     .enter()
     .append("text")
-    .attr("x", (d,i) => xScale(d.poverty))
+    .attr("x", d => xScale(d.poverty))
     .attr("y", d => (yScale(d.healthcare-0.28)))
     .classed("stateText", true)
-    .text(d => d.abbr)
-    .on("mouseover", function(d) {
-        toolTip.show(d);
-    })
-    .on("mouseout", function(d,i) {
-        toolTip.hide(d);
+    .text(function(d){
+        console.log(d.abbr);
+        return(d.abbr)
     });
+ 
 
-    // x labels
+
+// x labels
 chartGroup.append("text")
 .attr("transform", "rotate(-90)")
 .attr("y", 0 - margin.left)
 .attr("x", 0 - (height / 2)-50)
 .attr("dy", "1em")
-.classed("aText", true)
+.classed("Text", true)
 .attr("data-axis-name", "healthcare")
 .text("Lacks Healthcare(%)");
 
@@ -100,7 +100,7 @@ chartGroup.append("text")
 chartGroup.append("text")
 .attr("transform", "translate(" + width / 2 + " ," + (height + margin.top + 20) + ")")
 .attr("data-axis-name", "poverty")
-.classed("aText", true)
+.classed("Text", true)
 .text("In Poverty (%)");
 
 // ToolTip
@@ -120,7 +120,7 @@ chartGroup.call(toolTip);
 circlesGroup.on("mouseover", function(d) {
 toolTip.show(d, this);
 })
-.on("mouseout", function(d, i){
+.on("mouseout", function(d){
     toolTip.hide(d);
 });
 
